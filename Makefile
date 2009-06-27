@@ -10,6 +10,7 @@ PORTVERSION=	1.4
 CATEGORIES=	www
 MASTER_SITES=	http://labs.peritor.com/webistrano/attachment/wiki/Download
 EXTRACT_SUFX=	.zip?format=raw
+DISTFILES=	${PORTNAME}-${PORTVERSION}.zip
 
 WRKSRC=	${WRKDIR}/${PORTVERSION}
 
