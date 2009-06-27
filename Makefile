@@ -8,7 +8,7 @@
 PORTNAME=	webistrano
 PORTVERSION=	1.4
 CATEGORIES=	www
-MASTER_SITES=	http://labs.peritor.com/webistrano/attachment/wiki/Download/
+MASTER_SITES=	http://labs.peritor.com/webistrano/attachment/wiki/Download
 EXTRACT_SUFX=	.zip?format=raw
 
 WRKSRC=	${WRKDIR}/${PORTVERSION}
@@ -27,7 +27,7 @@ PUBLIC_DIR=	public
 
 do-fetch:
 .if !exists(${DISTDIR}/${DISTNAME}.zip)
-	${FETCH} -o ${DISTDIR}/${DISTNAME}.zip ${MASTER_SITES}/${DISTNAME}${EXTRACT_SUFX}
+	${FETCH_CMD} -o ${DISTDIR}/${DISTNAME}.zip ${MASTER_SITES}/${DISTNAME}${EXTRACT_SUFX}
 .endif
 
 do-install:
