@@ -25,6 +25,11 @@ USE_RAKE=	yes
 NO_BUILD=	yes
 PUBLIC_DIR=	public
 
+do-fetch:
+.if !exists(${DISTDIR}/${DISTNAME}.zip)
+	${FETCH} -o ${DISTDIR}/${DISTNAME}.zip ${MASTER_SITES}/${DISTNAME}${EXTRACT_SUFX}
+.endif
+
 do-install:
 	-${MKDIR} ${WWWDIR}
 	@cd ${WRKSRC} && ${COPYTREE_SHARE} \* ${WWWDIR}
