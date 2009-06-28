@@ -17,5 +17,4 @@ aims to provide a simple and integrated installation on FreeBSD.
 ## TODO
 
  * create RC-script to start webistrano when the server starts
- * split port into `%%PREFIX%%` and `%%WWWDIR%%`
- * maybe replace included plugins with ports
+
