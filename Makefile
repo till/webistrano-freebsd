@@ -70,8 +70,9 @@ post-install:
 	@${ECHO_MSG} " - copy config/webistrano_config.rb.sample to config/webistrano_config.rb and edit"
 	@${ECHO_MSG} " - copy config/database.yml.sample to config/database.yml and edit"
 	@${ECHO_MSG} " - create a database [mysql, pgsql, sqlite]"
-	@${ECHO_MSG} " - execute \"RAILS_ENV=production rake db:migrate.\""
-	@${ECHO_MSG} " - ruby script/server -d -p 3000 -e production"
+	@${ECHO_MSG} " - execute \"setenv RAILS_ENV production\""
+	@${ECHO_MSG} " - execute \"rake db:migrate\""
+	@${ECHO_MSG} " - execute \"ruby script/server -d -p 3000 -e production\""
 	@${ECHO_MSG}
 	@${ECHO_MSG} "======================================================================"
 
