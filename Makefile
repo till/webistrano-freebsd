@@ -18,9 +18,17 @@ MAINTAINER=	till@php.net
 COMMENT=	A web frontend to capistrano.
 
 #RUN_DEPENDS=	rubygem-capistrano>=2.2.5:${PORTSDIR}/sysutils/rubygem-capistrano 
-EXTRACT_DEPENDS=	unzip:${PORTSDIR}/archivers/unzip
+
+OPTIONS=	MYSQL "Use MySQL" on \
+		PGSQL "Use PostgreSQL" off \
+		SQLITE "Use SQLite" off
+
+.if defined(WITHOUT_MYSQL) && !defined(WITH_PGSQL) && !defined(WITH_SQLITE)
+IGNORE=		needs a database backend
+.endif
 
 USE_ZIP=	yes
+RUBY_VERSION=	1.8.4
 USE_RUBY=	yes
 USE_RAKE=	yes
 NO_BUILD=	yes
