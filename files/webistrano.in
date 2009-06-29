@@ -24,10 +24,17 @@ webistrano_user="${webistrano_user:-"www"}"
 
 name="webistrano"
 rcvar=${name}_enable
- 
+
+if [ "$webistrano_ip" != "0.0.0.0" ]
+    then
+        webistrano_bind="-b ${webistrano_ip} "
+    else
+        webistrano_bind=""
+fi
+
 load_rc_config $name
  
-command="%%PREFIX%%/ruby %%WWWDIR%%/script/server -d -p ${webistrano_port} -e production"
+command="%%PREFIX%%/ruby %%WWWDIR%%/script/server -d -p ${webistrano_port} ${webistrano_bind}-e production"
 pidfile=/var/run/${name}.pid
 
 : ${webistrano_enable="NO"}
