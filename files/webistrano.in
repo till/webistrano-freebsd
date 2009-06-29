@@ -1,0 +1,41 @@
+#!/bin/sh
+ 
+# PROVIDE: webistrano
+# REQUIRE: LOGIN
+#
+# Add the following lines to /etc/rc.conf.local or /etc/rc.conf
+# to enable this service:
+#
+# webistrano_enable (bool):   Set to NO by default.
+#               Set it to YES to enable couchdb.
+#
+# webistrano_ip (string):   0.0.0.0 by default.
+#
+# webistrano_port (string):   Set to 3000 by default.
+#
+# webistrano_user (string):   www by default.
+#
+
+webistrano_ip="${webistrano_ip:-"0.0.0.0"}"
+webistrano_port="${webistrano_port:-"9000"}"
+webistrano_user="${webistrano_user:-"www"}"
+
+. %%RC_SUBR%%
+
+name="webistrano"
+rcvar=${name}_enable
+ 
+load_rc_config $name
+ 
+command="%%PREFIX%%/ruby %%WWWDIR%%/script/server -d -p ${webistrano_port} -e production"
+pidfile=/var/run/${name}.pid
+
+: ${webistrano_enable="NO"}
+
+pid_touch ()
+{
+    touch $pidfile
+    chown $webistrano_user $pidfile
+}
+
+run_rc_command "$1"
