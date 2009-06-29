@@ -7,7 +7,7 @@
 # to enable this service:
 #
 # webistrano_enable (bool):   Set to NO by default.
-#               Set it to YES to enable couchdb.
+#               Set it to YES to enable webistrano.
 #
 # webistrano_ip (string):   0.0.0.0 by default.
 #
