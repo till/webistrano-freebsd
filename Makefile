@@ -34,6 +34,7 @@ OPTIONS=	MYSQL "Use MySQL" on \
 IGNORE=		needs a database backend
 .endif
 
+USE_RC_SUBR=	webistrano
 USE_ZIP=	yes
 RUBY_VERSION=	1.8.4
 USE_RUBY=	yes
