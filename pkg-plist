@@ -1636,6 +1636,7 @@
 %%WWWDIR%%/README.txt
 %%WWWDIR%%/LICENSE.txt
 %%WWWDIR%%/CHANGELOG.txt
+%%PREFIX%%/etc/rc.d/webistrano
 @dirrm %%WWWDIR%%/vendor/rails/railties/lib/tasks
 @dirrm %%WWWDIR%%/vendor/rails/railties/lib/rails_generator/scripts
 @dirrm %%WWWDIR%%/vendor/rails/railties/lib/rails_generator/generators/components/session_migration/templates
