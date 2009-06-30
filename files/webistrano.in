@@ -25,10 +25,10 @@ webistrano_user="${webistrano_user:-"www"}"
 name="webistrano"
 rcvar=${name}_enable
 
-webistrano_bind = ""
+$webistrano_bind = ""
 if [ "$webistrano_ip" != "0.0.0.0" ]
     then
-        webistrano_bind="-b ${webistrano_ip} "
+        $webistrano_bind="-b ${webistrano_ip} "
 fi
 
 load_rc_config $name
