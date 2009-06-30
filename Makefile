@@ -24,7 +24,8 @@ RUN_DEPENDS=	rubygem-capistrano>=2.4.3:${PORTSDIR}/sysutils/rubygem-capistrano \
 		rubygem-net-ssh>=2.0.2:${PORTSDIR}/security/rubygem-net-ssh \
 		rubygem-net-ssh-gateway>=1.0.0:${PORTSDIR}/security/rubygem-net-ssh-gateway \
 		rubygem-open4>=0.9.6:${PORTSDIR}/devel/rubygem-open4 \
-		rubygem-syntax>=1.0.0:${PORTSDIR}/textproc/rubygem-syntax
+		rubygem-syntax>=1.0.0:${PORTSDIR}/textproc/rubygem-syntax \
+		rubygem-thin>=1.2.2:${PORTSDIR}/www/rubygem-thin
 
 OPTIONS=	MYSQL "Use MySQL" on \
 		PGSQL "Use PostgreSQL" off \
@@ -33,6 +34,11 @@ OPTIONS=	MYSQL "Use MySQL" on \
 .if defined(WITHOUT_MYSQL) && !defined(WITH_PGSQL) && !defined(WITH_SQLITE)
 IGNORE=		needs a database backend
 .endif
+
+WEBISTRANO_VARDIR?=	/var
+WEBISTRANO_LOGDIR?=	${WEBISTRANO_VARDIR}/log/webistrano
+WEBISTRANO_RUNDIR?=	${WEBISTRANO_VARDIR}/run/webistrano
+WEBISTRANO_USER?=	www
 
 USE_RC_SUBR=	webistrano
 USE_ZIP=	yes
@@ -77,5 +83,7 @@ post-install:
 	@${ECHO_MSG} " - execute \"${PREFIX}/etc/rc.d/webistrano.sh start\""
 	@${ECHO_MSG}
 	@${ECHO_MSG} "======================================================================"
+	${MKDIR} ${WEBISTRANO_LOGDIR} ${WEBISTRANO_RUNDIR}
+	@${CHOWN} ${WEBISTRANO_USER} ${WEBISTRANO_LOGDIR} ${WEBISTRANO_RUNDIR}
 
 .include <bsd.port.mk>
