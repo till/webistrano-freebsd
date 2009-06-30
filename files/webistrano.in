@@ -9,15 +9,15 @@
 # webistrano_enable (bool):   Set to NO by default.
 #               Set it to YES to enable webistrano.
 #
-# webistrano_ip (string):   0.0.0.0 by default.
+# webistrano_ip (string):   127.0.0.1 by default.
 #
 # webistrano_port (string):   Set to 3000 by default.
 #
 # webistrano_user (string):   www by default.
 #
 
-webistrano_ip="${webistrano_ip:-"0.0.0.0"}"
-webistrano_port="${webistrano_port:-"9000"}"
+webistrano_ip="${webistrano_ip:-"127.0.0.1"}"
+webistrano_port="${webistrano_port:-"3000"}"
 webistrano_user="${webistrano_user:-"www"}"
 
 . %%RC_SUBR%%
