@@ -15,10 +15,13 @@
 #
 # webistrano_user (string):   www by default.
 #
+# webistrano_http (string):   thin by default.
+#
 
 webistrano_ip="${webistrano_ip:-"127.0.0.1"}"
 webistrano_port="${webistrano_port:-"3000"}"
 webistrano_user="${webistrano_user:-"www"}"
+webistrano_http="${webistrano_http:-"thin"}"
 
 . %%RC_SUBR%%
 
@@ -28,19 +31,16 @@ rcvar=${name}_enable
 webistrano_bind="-b ${webistrano_ip} "
 
 load_rc_config $name
- 
-command="%%PREFIX%%/bin/ruby %%WWWDIR%%/script/server -d -p ${webistrano_port} -b ${webistrano_ip} -e production"
-pidfile=%%WWWDIR%%/tmp/pids/server.pid
+
+pidfile=/var/run/${name}/thin.pid
+logfile=/var/log/${name}/thin.log
+
+thin_flags="-d -u ${webistrano_user} -P ${pidfile} -a ${webistrano_ip} -p ${webistrano_port} -l ${logfile} --tag=OHAI_WEBISTRANO"
+
+command="%%PREFIX%%/bin/thin -A rails -c %%WWWDIR%% -e production ${thin_flags} start"
 
 : ${webistrano_enable="NO"}
 
-start_precmd=pid_touch
-stop_cmd="KILL, KILL, KILL"
-
-pid_touch ()
-{
-    touch $pidfile
-    chown $webistrano_user $pidfile
-}
+stop_cmd="%%PREFIX%%/bin/thin -P ${pidfile} stop"
 
 run_rc_command "$1"
