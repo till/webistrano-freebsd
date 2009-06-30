@@ -73,7 +73,8 @@ post-install:
 	@${ECHO_MSG} " - create a database [mysql, pgsql, sqlite]"
 	@${ECHO_MSG} " - execute \"setenv RAILS_ENV production\""
 	@${ECHO_MSG} " - execute \"rake db:migrate\""
-	@${ECHO_MSG} " - execute \"ruby script/server -d -p 3000 -e production\""
+	@${ECHO_MSG} " - add webistrano_enable=\"YES\" in /etc/rc.conf or /etc/rc.conf.local"
+	@${ECHO_MSG} " - execute \"${PREFIX}/etc/rc.d/webistrano.sh start\""
 	@${ECHO_MSG}
 	@${ECHO_MSG} "======================================================================"
 
