@@ -8,14 +8,12 @@
 PORTNAME=	webistrano
 PORTVERSION=	1.4
 CATEGORIES=	www devel
-MASTER_SITES=	http://labs.peritor.com/webistrano/attachment/wiki/Download
+MASTER_SITES=	http://labs.peritor.com/webistrano/attachment/wiki/Download/
 EXTRACT_SUFX=	.zip?format=raw
-DISTFILES=	${PORTNAME}-${PORTVERSION}.zip
-
-WRKSRC=	${WRKDIR}/${PORTVERSION}
+DISTFILES=	${DISTNAME}.zip
 
 MAINTAINER=	till@php.net
-COMMENT=	A web frontend to capistrano.
+COMMENT=	A web frontend to manage deployment through capistrano
 
 RUN_DEPENDS=	rubygem-capistrano>=2.4.3:${PORTSDIR}/sysutils/rubygem-capistrano \
 		rubygem-mocha>=0.9.5:${PORTSDIR}/devel/rubygem-mocha \
@@ -27,13 +25,9 @@ RUN_DEPENDS=	rubygem-capistrano>=2.4.3:${PORTSDIR}/sysutils/rubygem-capistrano \
 		rubygem-syntax>=1.0.0:${PORTSDIR}/textproc/rubygem-syntax \
 		rubygem-thin>=1.2.2:${PORTSDIR}/www/rubygem-thin
 
-OPTIONS=	MYSQL "Use MySQL" on \
-		PGSQL "Use PostgreSQL" off \
-		SQLITE "Use SQLite" off
+#RUN_DEPENDS+=	rubygem-activerecord>=2.1.1:${PORTSDIR}/databases/rubygem-activerecord
 
-.if defined(WITHOUT_MYSQL) && !defined(WITH_PGSQL) && !defined(WITH_SQLITE)
-IGNORE=		needs a database backend
-.endif
+WRKSRC=	${WRKDIR}/${PORTVERSION}
 
 WEBISTRANO_VARDIR?=	/var
 WEBISTRANO_LOGDIR?=	${WEBISTRANO_VARDIR}/log/webistrano
@@ -46,7 +40,7 @@ RUBY_VERSION=	1.8.4
 USE_RUBY=	yes
 USE_RAKE=	yes
 NO_BUILD=	yes
-PUBLIC_DIR=	public
+
 DELETE_PLUGINS=	capistrano-2.4.3 capistrano-2.5.0 \
 		highline-1.4.0 mocha-0.4.0 \
 		net-scp-1.0.1 net-sftp-2.0.1 \
@@ -55,7 +49,7 @@ DELETE_PLUGINS=	capistrano-2.4.3 capistrano-2.5.0 \
 
 do-fetch:
 .if !exists(${DISTDIR}/${DISTNAME}.zip)
-	${FETCH_CMD} -o ${DISTDIR}/${DISTNAME}.zip ${MASTER_SITES}/${DISTNAME}${EXTRACT_SUFX}
+	${FETCH_CMD} -o ${DISTDIR}/${DISTNAME}.zip ${MASTER_SITES}${DISTNAME}${EXTRACT_SUFX}
 .endif
 
 do-install:
@@ -65,7 +59,6 @@ do-install:
 	${MKDIR} ${WWWDIR}
 	@cd ${WRKSRC} && ${COPYTREE_SHARE} \* ${WWWDIR}
 	@${CHOWN} -R ${WWWOWN}:${WWWGRP} ${WWWDIR}
-	@${CAT} ${PKGMESSAGE}
 
 post-install:
 	${MKDIR} ${WEBISTRANO_LOGDIR} ${WEBISTRANO_RUNDIR}
