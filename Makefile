@@ -7,7 +7,7 @@
 
 PORTNAME=	webistrano
 PORTVERSION=	1.4
-CATEGORIES=	www
+CATEGORIES=	www devel
 MASTER_SITES=	http://labs.peritor.com/webistrano/attachment/wiki/Download
 EXTRACT_SUFX=	.zip?format=raw
 DISTFILES=	${PORTNAME}-${PORTVERSION}.zip
@@ -38,7 +38,7 @@ IGNORE=		needs a database backend
 WEBISTRANO_VARDIR?=	/var
 WEBISTRANO_LOGDIR?=	${WEBISTRANO_VARDIR}/log/webistrano
 WEBISTRANO_RUNDIR?=	${WEBISTRANO_VARDIR}/run/webistrano
-WEBISTRANO_USER?=	www
+WEBISTRANO_USER?=	${WWWOWN}
 
 USE_RC_SUBR=	webistrano
 USE_ZIP=	yes
@@ -64,9 +64,6 @@ do-install:
 .endfor
 	${MKDIR} ${WWWDIR}
 	@cd ${WRKSRC} && ${COPYTREE_SHARE} \* ${WWWDIR}
-.for i in ${PUBLIC_DIR}
-	@${CHMOD} 777 ${WWWDIR}/${i}
-.endfor
 	@${CHOWN} -R ${WWWOWN}:${WWWGRP} ${WWWDIR}
 	@${CAT} ${PKGMESSAGE}
 
