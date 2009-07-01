@@ -1,3 +1,9 @@
-YOUR MOTHER
+Webistrano is a Web UI for managing Capistrano deployments. It lets you manage
+projects and their stages like test, production, and staging with different
+settings. Those stages can then be deployed with Capistrano through Webistrano.
+
+Webistrano's purpose is to make the deployment of multi-stage and multi-environment
+scenarios easy. Further it allows you to track who deployed what, when to which
+servers and be alerted by email on each deployment.
 
 WWW:	http://labs.peritor.com/webistrano/
