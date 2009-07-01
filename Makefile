@@ -68,18 +68,6 @@ do-install:
 	@${CAT} ${PKGMESSAGE}
 
 post-install:
-	@${ECHO_MSG} "======================================================================"
-	@${ECHO_MSG}
-	@${ECHO_MSG} "Finish the installation in ${WWWDIR} with:"
-	@${ECHO_MSG} " - copy config/webistrano_config.rb.sample to config/webistrano_config.rb and edit"
-	@${ECHO_MSG} " - copy config/database.yml.sample to config/database.yml and edit"
-	@${ECHO_MSG} " - create a database [mysql, pgsql, sqlite]"
-	@${ECHO_MSG} " - execute \"setenv RAILS_ENV production\""
-	@${ECHO_MSG} " - execute \"rake db:migrate\""
-	@${ECHO_MSG} " - add webistrano_enable=\"YES\" in /etc/rc.conf or /etc/rc.conf.local"
-	@${ECHO_MSG} " - execute \"${PREFIX}/etc/rc.d/webistrano.sh start\""
-	@${ECHO_MSG}
-	@${ECHO_MSG} "======================================================================"
 	${MKDIR} ${WEBISTRANO_LOGDIR} ${WEBISTRANO_RUNDIR}
 	@${CHOWN} ${WEBISTRANO_USER} ${WEBISTRANO_LOGDIR} ${WEBISTRANO_RUNDIR}
 
