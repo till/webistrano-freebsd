@@ -8,9 +8,7 @@
 PORTNAME=	webistrano
 PORTVERSION=	1.4
 CATEGORIES=	www devel
-MASTER_SITES=	http://labs.peritor.com/webistrano/attachment/wiki/Download/
-EXTRACT_SUFX=	.zip?format=raw
-DISTFILES=	${DISTNAME}.zip
+MASTER_SITES=	http://labs.peritor.com/webistrano/raw-attachment/wiki/Download/
 
 MAINTAINER=	till@php.net
 COMMENT=	A web frontend to manage deployment through capistrano
@@ -47,18 +45,13 @@ DELETE_PLUGINS=	capistrano-2.4.3 capistrano-2.5.0 \
 		net-ssh-2.0.2 net-ssh-gateway-1.0.0 \
 		open4-0.9.3 syntax-1.0.0
 
-do-fetch:
-.if !exists(${DISTDIR}/${DISTNAME}.zip)
-	${FETCH_CMD} -o ${DISTDIR}/${DISTNAME}.zip ${MASTER_SITES}${DISTNAME}${EXTRACT_SUFX}
-.endif
-
 do-install:
 .for x in ${DELETE_PLUGINS}
 	-${RM} -rf ${WRKSRC}/vendor/plugins/${x}
 .endfor
 	${MKDIR} ${WWWDIR}
 	@cd ${WRKSRC} && ${COPYTREE_SHARE} \* ${WWWDIR}
-	@${CHOWN} -R ${WWWOWN}:${WWWGRP} ${WWWDIR}
+	@${CHOWN} -R ${WEBISTRANO_USER} ${WWWDIR}
 
 post-install:
 	${MKDIR} ${WEBISTRANO_LOGDIR} ${WEBISTRANO_RUNDIR}
